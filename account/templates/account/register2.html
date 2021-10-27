@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            
+            <div class="container">
+                <div class="signup-content">
+                    <form id="signup-form" class="signup-form" method="POST">{% csrf_token %}
+                        <h2 class="form-title">Create account</h2>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email"  placeholder="enter Email"/>
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-input" name="username"  placeholder="enter username"/>
+                      </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="password1" id="password1" placeholder="Password"/>
+                           
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="password2" id="password2" placeholder="Repeat your password"/>
+                        </div>
+                       
+
+                        {% for field  in registration_form %}
+                        <p>
+                            {% for error in field.error %}
+                            <p style ="color: red">{{error}}</p>
+                            {% endfor %}
+                        </p >
+                     {% endfor %}
+                     {% if registration_form.non_field_errors %}
+                        <div style ="color: red">
+                         <p>{{registration_form.non_field_errors}}</p>
+                     </div>
+                     {% endif %}
+
+                        <div class="form-group">
+                            <button class ="btn btn-primary btn-block" type="submit">REGISTER</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+{% endblock content %}

@@ -1,0 +1,319 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+ {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Charity HTML Template</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400%7CSource+Sans+Pro:700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{% static 'detail_blog/css/bootstrap.min.css'%}" />
+
+	<!-- Owl Carousel -->
+	<link type="text/css" rel="stylesheet" href="{% static 'detail_blog/css/owl.carousel.css'%}" />
+	<link type="text/css" rel="stylesheet" href="{% static 'detail_blog/css/owl.theme.default.css'%}" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="{% static 'detail_blog/css/font-awesome.min.css'%}">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{% static 'detail_blog/css/style.css'%}" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+<style>
+    /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+ background-color: #eee;
+ color: #444;
+ cursor: pointer;
+ padding: 18px;
+ width: 100%;
+ text-align: left;
+ border: none;
+ outline: none;
+ transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+ background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+
+
+.ScrollStyle 
+{
+   max-height: 100%;
+   overflow-y: scroll;
+}
+
+.banner {
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+ 
+  width: 20px; /* Width of new image */
+  height: 300px; /* Height of new image */
+  margin-left: auto;
+  margin-right: auto; /* Equal to width of new image */
+}
+
+</style>
+<body>
+	<!-- HEADER -->
+	<header>
+		<!-- NAVGATION -->
+		
+		<!-- /NAVGATION -->
+
+		<!-- Page Header -->
+		<div id="page-header">
+			<!-- section background -->
+			<div class="section-bg" style="background-image: url({% static 'detail_blog/img/background.jpg'%});"></div>
+			<!-- /section background -->
+
+			<!-- page header content -->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="header-content">
+							<h1></h1>
+							<ul class="breadcrumb">
+								<li><a href="{% url 'home'%">Home</a></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page header content -->
+		</div>
+		<!-- /Page Header -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- MAIN -->
+				<main id="main" class="col-md-9">
+					<!-- article -->
+					<div class="article">
+						<!-- article img -->
+						<div class="" style ="">
+							<img src="{{blog_post.image.url}}" height="200px;"/>
+						</div>
+						<!-- article img -->
+
+						<!-- article content -->
+						<div class="article-content">
+							<!-- article title -->
+							<h2 class="article-title">{{blog_post.title}}</h2>
+							<!-- /article title -->
+
+							<!-- article meta -->
+							<ul class="article-meta">
+								<li> {{blog_post.date_updated}}</li>
+								<li>by {{blog_post.author}}</li>
+								<li>{{number}} Comments</li>
+							</ul>
+                            <!-- /article meta -->
+							<blockquote>
+								<p>{{  blog_post.body }}</p>
+							</blockquote>
+							
+						</div>
+						
+
+						<h3>{{number}}  comments</h3>
+						<!--button   class="accordion">see comments</button-->
+						<div class="article-comments">
+							{% for comment in displaycomment%}
+							<!-- comment -->
+							<div class="media">
+								
+								<!-- comment -->
+								<div class="media">
+									<div class="media-left">
+										<img class="media-object" src="{% static 'detail_blog/img/avatar-2.jpg'%}" alt="">
+									</div>
+									<div class="media-body">
+										<div class="media-heading">
+											<h4>{{comment.author}}</h4>
+											<span class="time">updated on {{comment.timestamp}} </span>
+											<a href="#" class="reply"></a>
+										</div>
+										<p> {{ comment.content}} </p>
+									</div>
+								</div>
+								<!-- /comment -->
+							</div>
+							<!-- /comment -->
+
+							 {% endfor%}
+						</div>
+						<!-- /article comments -->
+                       
+
+						<!-- article reply form -->
+						<div class="article-reply">
+                           
+							<h3 data-toggle="modal" data-target="#modalConfirmDelete"> Click to add a comment</h3>
+							<p> </p>
+
+            <form method="POST">
+              {% csrf_token %}
+                                  <!-- Button trigger modal-->  
+          <!--Modal: modalConfirmDelete-->
+          <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+              <!--Content-->
+              <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                  <p class="heading"></p>
+                </div>
+          
+                <!--Body-->
+                <div class="modal-body">
+                    <div>
+                    <textarea class="form-control" rows="2" type="text" name="content" id="id_body" placeholder="comment about..." required></textarea>
+				</div>
+				<div>
+					<br>
+				</div>
+                <div>
+					<label>rating:</label>
+				<input type="number"  min='1' max='5' name="rating" id="id_body" required></input>
+                </div>
+                </div>
+          
+                <!--Footer-->
+                <div class="modal-footer flex-center">
+                    <div class="text-center">
+                        <button class="btn  btn-success waves-effect" type="submit">POST</button>
+						</div>
+						<div>
+				  <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+				</div>
+                </div>
+              </div>
+              <!--/.Content-->
+            </div>
+          </div>
+          
+                            </form>
+						</div>
+						<!-- /article reply form -->
+					</div>
+					<!-- /article -->
+				</main>
+				
+
+				
+				<aside id="aside" class="col-md-3">
+					<!-- category widget -->
+					
+					<!-- posts widget -->
+					<div class="widget">
+						
+						<h3 class="widget-title">Latest Products Posts</h3>
+						<!-- single post -->
+						{% for post in blogpost %}
+						<div class="widget-post">
+							<a href="#">
+								<div class="widget-img">
+									<img src="{{post.image.url}}" alt="">
+								</div>
+								<div class="widget-content">
+									{{post.title}}
+								</div>
+							</a>
+							<ul class="article-meta">
+								<li>By {{post.author}}</li>
+								<li>{{post.date_updated}}</li>
+							</ul>
+						</div>
+						{% endfor %}
+						<!-- /single post -->
+
+						<!-- single post -->
+						
+						<!-- /single post -->
+
+						<!-- single post -->
+						
+						<!-- /single post -->
+					</div>
+					<!-- /posts widget -->
+
+					<!-- causes widget -->
+					
+					<!-- causes widget -->
+				</aside>
+				<!-- /ASIDE -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+
+	<!-- FOOTER -->
+	
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+	<script src="{% static 'detail_blog/js/jquery.min.js'%}"></script>
+	<script src="{% static 'detail_blog/js/bootstrap.min.js'%}"></script>
+	<script src="{% static 'detail_blog/js/owl.carousel.min.js'%}"></script>
+	<script src="{% static 'detail_blog/js/jquery.stellar.min.js'%}"></script>
+	<script src="{% static 'detail_blog/js/main.js'%}"></script>
+
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+	var i;
+	
+	for (i = 0; i < acc.length; i++) {
+	  acc[i].addEventListener("click", function() {
+		/* Toggle between adding and removing the "active" class,
+		to highlight the button that controls the panel */
+		this.classList.toggle("active");
+	
+		/* Toggle between hiding and showing the active panel */
+		var panel = this.nextElementSibling;
+		if (panel.style.display === "block") {
+		  panel.style.display = "none";
+		} else {
+		  panel.style.display = "block";
+		}
+	  });
+	} 
+	 </script>
+</body>
+
+</html>
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'font/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'font/iconic/css/material-design-iconic-font.min.css'%}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css'%}">
+<!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css'%}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css'%}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'%}">
+<!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css'%}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    
+
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				
+				<form class="login100-form validate-form" method = "post">{% csrf_token %}
+					<span class="login100-form-title p-b-49">
+						Login
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "email is reauired">
+						<span class="label-input100">email</span>
+						<input class="input100" type="email" name="email" placeholder="email">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" placeholder="Type your password">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+                     
+                    {% for field  in login_form %}
+                    <p>
+                        {% for error in field.error %}
+                        <p style ="color: red">{{error}}</p>
+                        {% endfor %}
+                    </p >
+                 {% endfor %}
+                 {% if login_form.non_field_errors %}
+                    <div style ="color: red">
+                     <p>{{login_form.non_field_errors}}</p>
+                 </div>
+				 {% endif %}
+				 <br>
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+
+							<div>
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+						</div>
+					</div>
+
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock content %}

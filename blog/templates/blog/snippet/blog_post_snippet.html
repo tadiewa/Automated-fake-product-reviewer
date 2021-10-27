@@ -1,0 +1,66 @@
+{% load static %}
+ 
+ {% block content %}
+  
+
+ <link rel="stylesheet" type="text/css" href="{% static 'detail.css'%}">
+ <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+ {% if blog_post %}
+ <section  style=" background-color:rgb(252, 249, 249); height: 50%; width: auto;" >
+ 
+    <div class ="container">
+    <div class="row">
+       
+        <!--blogpost-->
+        <div class="card m-auto" >
+            {%  if  blog_post.image %}
+                    <a href="{% url 'blog:detail' post.slug %}">
+                    <img class="card-img-top" src="{{blog_post.image.url}}"/>
+                    </a>
+                    <div class="card-body my-2">
+                    <a href="{% url 'blog:detail' post.slug %}">
+
+                    <h2 class="card-title" style="color: rgb(231, 38, 38);text-align: center; text-transform: uppercase;">{{blog_post.title}}</h2>
+                    </a>
+                    <p class="card-text">{{blog_post.body|safe|truncatechars:250}}</p>
+               
+            </div>
+            <div class="card-footer text-muted">
+                updated on {{blog_post.date_updated}} by {{blog_post.author}}
+            </div>
+
+             {% else %}
+             <div class="card-body my-2">
+                <a href="{% url 'blog:detail' post.slug %}">
+
+                <h2 class="card-title" style="color: rgb(231, 38, 38);text-align: center; text-transform: uppercase;">{{blog_post.title}}</h2>
+                </a>
+                <p class="card-text">{{blog_post.body|safe|truncatechars:250}}</p>
+           
+        </div>
+        <div class="card-footer text-muted">
+            updated on {{blog_post.date_updated}} by {{blog_post.author}}
+        </div>
+           
+        </div>
+        {% endif %}
+    </div>
+    {% else %}
+    <div class ="container">
+        <div class="row">
+            <div class="card-body my-2">
+                <h2 class="card-title">
+                      No Results
+                </h2>
+
+                <p class="card-text"> no result matching:"{{query}}".</p>
+            </div>
+        </div>
+    </div>
+        {% endif %}
+
+ 
+</div>
+ </section>
+
+ {% endblock content %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+<link href="{% static 'signup/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <link href="{% static 'signup/css/style.css'%}" rel="stylesheet">
+    
+    <!-- Color -->
+    <link id="skin" href="{% static 'signup/skins/default.css'%}" rel="stylesheet">
+
+    <script type="text/javascript">
+        document.getElementById("loading").className = "loading-visible";
+        var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
+        var oldLoad = window.onload;
+        var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
+        window.onload = newLoad;
+  </script>
+
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="login-wrapp">
+                    <div class="logreg-contain">
+                        <div class="custom-tabs" data-effect-in="flipInX">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active">
+                                    <a href="#tab1" data-toggle="tab">Create account</a>
+                                </li>
+                                
+                            </ul>
+                         
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab1">
+
+
+										<form method="post">{% csrf_token %}
+                                            <div class="form-group">
+												<label>Email : <span class="noempaty">*</span></label> 
+												<input type="email" class="form-control" id="email" name="email"  placeholder="Enter  email address"/>
+											</div>
+											<div class="form-group">
+												<label>Username : <span class="noempaty">*</span></label> 
+												<input type="text" class="form-control" id="username" name="username"  placeholder="Enter username "/>
+											</div>
+											<div class="form-group">
+												<label>Password : <span class="noempaty">*</span></label>
+												<input type="password" class="form-control" id="password1" name="password1" placeholder="Enter your password 8 characters and above"/>
+											</div>
+											<div class="form-group">
+												<label>Password : <span class="noempaty">*</span></label>
+												<input type="password" class="form-control text-muted" id="password2" name="password2" placeholder="ReEnter your password 8 characters and above"/>
+											</div>
+										{% for field  in registration_form %}
+											<p>  
+
+												{% for error in field.errors %}
+												   <p style ="color: red">{{error}}</p>
+												{% endfor %}
+											</p >
+										{% endfor %}
+										{% if registration_form.non_field_errors %}
+											<div style ="color:royalblue">
+											 <p>{{registration_form.non_field_errors}}</p>
+                                         </div>
+                                         
+										 {% endif %}
+											<div class="form-group">
+												<button type="submit" class="btn btn-primary">register</button>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                                        <script type="text/javascript" src="{% static 'signup/js/jquery.min.js'%}"></script>
+                                        <script src="{% static 'signup/js/bootstrap.min.js'%}"></script>
+                                        
+                                        <!-- Bootsnavs -->
+                                        <script src="{% static 'signup/js/bootsnav.js'%}"></script>
+                                        <!-- Custom form -->
+                                        <script src="{% static 'signup/js/form/jcf.js'%}"></script>
+                                        <script src="{% static 'signup/js/form/jcf.scrollable.js'%}"></script>
+                                        <script src="{% static 'signup/js/form/jcf.select.js'%}"></script>
+                                        
+                                        <!-- Custom checkbox and radio -->
+                                        <script src="{% static 'signup/js/checkator/fm.checkator.jquery.js'%}"></script>
+                                        <script src="{% static 'signup/js/checkator/setting.js'%}"></script>
+                                        
+                                        <!-- Custom -->
+                                        <script src="{% static 'signup/js/custom.js'%}"></script>
+								
+{% endblock content %}
